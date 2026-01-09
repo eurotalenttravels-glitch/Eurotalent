@@ -34,4 +34,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# CMS data files (local only, not synced to GitHub)
+# These files contain user-edited content and should not be version controlled
+/data/
+data/
+data/**/*.json
+data/**/*.txt
 
