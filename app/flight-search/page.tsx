@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback, Suspense } from 'react'
 import Header from '@/components/Header'
 import SearchSummary from '@/components/SearchSummary'
 import Filters from '@/components/Filters'
@@ -125,7 +125,7 @@ function transformFlight(flight: Flight, travelers: number): FlightCardData {
   }
 }
 
-export default function FlightSearchPage() {
+function FlightSearchContent() {
   const searchParams = useSearchParams()
   const [selectedAirline, setSelectedAirline] = useState<string>('all')
   const [sortBy, setSortBy] = useState<'cheapest' | 'fastest'>('cheapest')
@@ -415,5 +415,17 @@ export default function FlightSearchPage() {
         </svg>
       </a>
     </div>
+  )
+}
+
+export default function FlightSearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#fbfbfd] flex items-center justify-center">
+        <div className="text-gray-600">Loading...</div>
+      </div>
+    }>
+      <FlightSearchContent />
+    </Suspense>
   )
 }
