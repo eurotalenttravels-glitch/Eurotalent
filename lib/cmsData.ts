@@ -4,7 +4,16 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
 
-const DATA_DIR = join(process.cwd(), 'data')
+// Use /tmp in serverless environments (Vercel, etc.) where filesystem is read-only
+// Otherwise use data/ directory
+function getDataDir() {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return '/tmp/data'
+  }
+  return join(process.cwd(), 'data')
+}
+
+const DATA_DIR = getDataDir()
 const HOMEPAGE_DATA_FILE = join(DATA_DIR, 'homepage.json')
 const VISA_DATA_FILE = join(DATA_DIR, 'visa.json')
 const NATIONALITIES_FILE = join(DATA_DIR, 'nationalities.json')
@@ -128,8 +137,19 @@ const defaultNationalities: Nationality[] = [
 // Initialize data directory if it doesn't exist
 function ensureDataDir() {
   if (typeof window === 'undefined') {
-    if (!existsSync(DATA_DIR)) {
-      mkdirSync(DATA_DIR, { recursive: true })
+    try {
+      if (!existsSync(DATA_DIR)) {
+        mkdirSync(DATA_DIR, { recursive: true })
+      }
+    } catch (error: any) {
+      // If we can't create the directory, it might be read-only filesystem
+      if (error.code === 'EROFS' || error.code === 'EACCES') {
+        console.error(`Cannot write to ${DATA_DIR}. Filesystem is read-only.`)
+        console.error('This is expected in serverless environments like Vercel.')
+        console.error('For production, consider using a database or external storage service.')
+        throw new Error('File system is read-only. In serverless environments, data cannot be persisted to files. Consider using a database.')
+      }
+      throw error
     }
   }
 }
