@@ -103,10 +103,10 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Contact Information */}
-            <div className="bg-white rounded-2xl shadow-apple p-8 border border-gray-100/50">
-              <h2 className="text-2xl font-semibold text-[#1d1d1f] mb-6">Get in Touch</h2>
+            <div className="bg-white rounded-2xl shadow-apple p-6 sm:p-8 border border-gray-100/50">
+              <h2 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] mb-6">Get in Touch</h2>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -172,8 +172,8 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl shadow-apple p-8 border border-gray-100/50">
-              <h2 className="text-2xl font-semibold text-[#1d1d1f] mb-6">Send us a Message</h2>
+            <div className="bg-white rounded-2xl shadow-apple p-6 sm:p-8 border border-gray-100/50">
+              <h2 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] mb-6">Send us a Message</h2>
               
               {isSubmitted ? (
                 <div className="text-center py-8">

@@ -51,19 +51,21 @@ export default function Home() {
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 py-20 flex flex-col items-center justify-center min-h-[600px]">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[600px]">
           {/* Title */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
+          <div className="text-center mb-8 sm:mb-12 px-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight">
               {content.heroTitle}
             </h1>
-            <p className="text-xl text-white/90">
+            <p className="text-base sm:text-lg md:text-xl text-white/90">
               {content.heroSubtitle}
             </p>
           </div>
 
           {/* Travel Search Form */}
-          <TravelSearchForm />
+          <div className="w-full max-w-6xl px-4">
+            <TravelSearchForm />
+          </div>
         </div>
       </div>
     </div>

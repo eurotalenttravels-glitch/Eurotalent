@@ -197,36 +197,36 @@ export default function TravelSearchForm({ initialValues }: TravelSearchFormProp
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-6xl mx-auto">
+    <div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-6xl mx-auto">
       {/* Service Tabs */}
-      <div className="mb-6">
-        <div className="flex items-center justify-center gap-6 mb-2">
+      <div className="mb-4 sm:mb-6">
+        <div className="flex items-center justify-center gap-4 sm:gap-6 mb-2">
           <button
             onClick={() => setServiceType('flights')}
-            className={`flex items-center gap-2 pb-2 transition-colors ${
+            className={`flex items-center gap-1.5 sm:gap-2 pb-2 transition-colors ${
               serviceType === 'flights'
                 ? 'border-b-2 border-blue-600 text-blue-600'
                 : 'text-gray-600 hover:text-blue-600'
             }`}
           >
-            <span className="text-2xl">✈️</span>
-            <span className="text-lg font-semibold">Flights</span>
+            <span className="text-xl sm:text-2xl">✈️</span>
+            <span className="text-base sm:text-lg font-semibold">Flights</span>
           </button>
           <button
             onClick={() => {
               router.push('/visa')
             }}
-            className={`flex items-center gap-2 pb-2 transition-colors ${
+            className={`flex items-center gap-1.5 sm:gap-2 pb-2 transition-colors ${
               serviceType === 'visa'
                 ? 'border-b-2 border-blue-600 text-blue-600'
                 : 'text-gray-600 hover:text-blue-600'
             }`}
           >
-            <span className="text-2xl">🛂</span>
-            <span className="text-lg font-semibold">Visa</span>
+            <span className="text-xl sm:text-2xl">🛂</span>
+            <span className="text-base sm:text-lg font-semibold">Visa</span>
           </button>
         </div>
-        <p className="text-sm text-gray-500 text-center">
+        <p className="text-xs sm:text-sm text-gray-500 text-center px-2">
           {serviceType === 'flights'
             ? 'Book International and Domestic Flights'
             : 'Check visa requirements and get expert guidance'}
@@ -237,8 +237,8 @@ export default function TravelSearchForm({ initialValues }: TravelSearchFormProp
       {serviceType === 'flights' && (
         <>
           {/* Trip Type Selection */}
-          <div className="flex gap-4 mb-6">
-            <label className="flex items-center">
+          <div className="flex flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
                 name="tripType"
@@ -247,9 +247,9 @@ export default function TravelSearchForm({ initialValues }: TravelSearchFormProp
                 onChange={(e) => setTripType(e.target.value as 'oneway')}
                 className="mr-2"
               />
-              <span className="text-sm font-medium">One Way</span>
+              <span className="text-xs sm:text-sm font-medium">One Way</span>
             </label>
-            <label className="flex items-center">
+            <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
                 name="tripType"
@@ -258,9 +258,9 @@ export default function TravelSearchForm({ initialValues }: TravelSearchFormProp
                 onChange={(e) => setTripType(e.target.value as 'roundtrip')}
                 className="mr-2"
               />
-              <span className="text-sm font-medium">Round Trip</span>
+              <span className="text-xs sm:text-sm font-medium">Round Trip</span>
             </label>
-            <label className="flex items-center">
+            <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
                 name="tripType"
@@ -269,7 +269,7 @@ export default function TravelSearchForm({ initialValues }: TravelSearchFormProp
                 onChange={(e) => setTripType(e.target.value as 'multicity')}
                 className="mr-2"
               />
-              <span className="text-sm font-medium">Multi City</span>
+              <span className="text-xs sm:text-sm font-medium">Multi City</span>
             </label>
           </div>
 
@@ -395,9 +395,9 @@ export default function TravelSearchForm({ initialValues }: TravelSearchFormProp
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-8 py-4 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 font-semibold text-lg"
+                className="w-full sm:w-auto bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-semibold text-base sm:text-lg"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 Search

@@ -95,12 +95,12 @@ export default function VisaPage() {
       
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-[#007aff]/10 via-white to-[#007aff]/5 border-b border-gray-200/50">
-        <div className="container mx-auto px-6 lg:px-8 py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-semibold text-[#1d1d1f] mb-4 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-[#1d1d1f] mb-3 sm:mb-4 tracking-tight">
               Visa Services
             </h1>
-            <p className="text-lg text-gray-600 mb-8 font-medium">
+            <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 font-medium px-4">
               Select your nationality and destination country to view visa requirements
             </p>
           </div>
@@ -108,9 +108,9 @@ export default function VisaPage() {
       </div>
 
       {/* Nationality Selection */}
-      <div className="container mx-auto px-6 lg:px-8 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-apple p-8 border border-gray-100/50 mb-8">
+          <div className="bg-white rounded-2xl shadow-apple p-4 sm:p-6 md:p-8 border border-gray-100/50 mb-6 sm:mb-8">
             <label className="block text-xs font-medium text-gray-600 mb-4">Select Your Nationality</label>
             {nationalityOptions.length === 0 ? (
               <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
@@ -136,15 +136,15 @@ export default function VisaPage() {
           </div>
 
           {/* Country Flags Grid */}
-          <div className="bg-white rounded-2xl shadow-apple p-8 border border-gray-100/50 mb-8">
-            <h2 className="text-2xl font-semibold text-[#1d1d1f] mb-6 tracking-tight">
+          <div className="bg-white rounded-2xl shadow-apple p-4 sm:p-6 md:p-8 border border-gray-100/50 mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] mb-4 sm:mb-6 tracking-tight">
               Select Destination Country
             </h2>
-            <p className="text-sm text-gray-600 mb-6">
+            <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6">
               Click on a country flag to view visa requirements for {selectedNationality} nationals
             </p>
             
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4">
               {countriesWithFlags.map((country) => (
                 <button
                   key={country.code}
