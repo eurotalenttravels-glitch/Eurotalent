@@ -1,9 +1,10 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import Header from '@/components/Header'
 
-export default function HotelSearchPage() {
+function HotelSearchContent() {
   const searchParams = useSearchParams()
   
   const destination = searchParams.get('destination') || ''
@@ -36,6 +37,18 @@ export default function HotelSearchPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function HotelSearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-gray-600">Loading...</div>
+      </div>
+    }>
+      <HotelSearchContent />
+    </Suspense>
   )
 }
 
