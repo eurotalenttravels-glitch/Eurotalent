@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { transformAmadeusFlights, Flight } from "@/lib/flightApi";
 import { getMockFlights, FlightSearchParams } from "@/lib/flightApi";
 
+// Mark this route as dynamic since it uses searchParams
+export const dynamic = 'force-dynamic';
+
 async function getToken() {
   const base = process.env.AMADEUS_BASE_URL || "https://test.api.amadeus.com";
   const apiKey = process.env.AMADEUS_API_KEY || "";
