@@ -95,10 +95,15 @@ export default function ContentManagerPage() {
         setMessage({ type: 'success', text: '✅ Site content saved successfully!' })
         setTimeout(() => setMessage(null), 5000)
       } else {
-        setMessage({ type: 'error', text: data.error || 'Failed to save content' })
+        const errorMsg = data.details 
+          ? `${data.error}: ${data.details}` 
+          : data.error || 'Failed to save content'
+        setMessage({ type: 'error', text: errorMsg })
+        console.error('Save error:', data)
       }
-    } catch (error) {
-      setMessage({ type: 'error', text: 'An error occurred while saving' })
+    } catch (error: any) {
+      console.error('Save error:', error)
+      setMessage({ type: 'error', text: `An error occurred: ${error?.message || 'Unknown error'}` })
     } finally {
       setSaving(false)
     }

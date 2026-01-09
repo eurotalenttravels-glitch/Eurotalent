@@ -25,12 +25,33 @@ export async function POST(request: NextRequest) {
     }
 
     const content = await request.json()
+    
+    // Validate content structure
+    if (!content || typeof content !== 'object') {
+      return NextResponse.json(
+        { error: 'Invalid content data' },
+        { status: 400 }
+      )
+    }
+
+    // Validate required fields
+    if (!content.header || !content.contact || !content.footer || !content.social) {
+      return NextResponse.json(
+        { error: 'Missing required content sections' },
+        { status: 400 }
+      )
+    }
+
     saveSiteContent(content)
 
     return NextResponse.json({ success: true, message: 'Site content saved successfully' })
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error saving site content:', error)
     return NextResponse.json(
-      { error: 'Failed to save site content' },
+      { 
+        error: 'Failed to save site content',
+        details: error?.message || 'Unknown error'
+      },
       { status: 500 }
     )
   }
