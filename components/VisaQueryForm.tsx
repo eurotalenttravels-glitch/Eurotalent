@@ -263,7 +263,12 @@ export default function VisaQueryForm({ nationality, destination, isVisible, onC
                   type="date"
                   value={formData.travelDate}
                   onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200/50 rounded-xl text-sm font-medium text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-[#007aff]/20 focus:border-[#007aff] transition-all"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border border-gray-200/50 rounded-xl text-sm sm:text-base font-medium text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-[#007aff]/20 focus:border-[#007aff] transition-all appearance-none [-webkit-appearance:none] [-moz-appearance:textfield]"
+                  style={{
+                    fontSize: '16px', // Prevents zoom on iOS
+                    lineHeight: '1.5',
+                    minHeight: '44px' // iOS touch target minimum
+                  }}
                 />
               </div>
 

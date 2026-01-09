@@ -260,7 +260,12 @@ export default function FlightSearchForm({ initialValues }: FlightSearchFormProp
               value={departureDate}
               onChange={(e) => setDepartureDate(e.target.value)}
               min={getMinDate()}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base appearance-none [-webkit-appearance:none] [-moz-appearance:textfield]"
+              style={{
+                fontSize: '16px', // Prevents zoom on iOS
+                lineHeight: '1.5',
+                minHeight: '44px' // iOS touch target minimum
+              }}
               required
             />
           </div>
@@ -274,7 +279,12 @@ export default function FlightSearchForm({ initialValues }: FlightSearchFormProp
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
                 min={getReturnMinDate()}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base appearance-none [-webkit-appearance:none] [-moz-appearance:textfield]"
+                style={{
+                  fontSize: '16px', // Prevents zoom on iOS
+                  lineHeight: '1.5',
+                  minHeight: '44px' // iOS touch target minimum
+                }}
                 required
               />
             </div>
