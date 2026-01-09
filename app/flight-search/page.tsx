@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useState, useEffect, useMemo, useCallback, Suspense } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import Header from '@/components/Header'
 import SearchSummary from '@/components/SearchSummary'
 import Filters from '@/components/Filters'
@@ -419,13 +419,5 @@ function FlightSearchContent() {
 }
 
 export default function FlightSearchPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-[#fbfbfd] flex items-center justify-center">
-        <div className="text-gray-600">Loading...</div>
-      </div>
-    }>
-      <FlightSearchContent />
-    </Suspense>
-  )
+  return <FlightSearchContent />
 }
