@@ -32,7 +32,7 @@ export default function ContentManagerPage() {
       navigation: [
         { label: 'Flights', href: '/' },
         { label: 'Visa', href: '/visa' },
-        { label: 'Contact Us', href: '#' },
+        { label: 'Contact Us', href: '/contact' },
       ],
     },
     footer: {
@@ -40,14 +40,14 @@ export default function ContentManagerPage() {
       links: [
         { label: 'Privacy Policy', href: '#' },
         { label: 'Terms of Service', href: '#' },
-        { label: 'Contact', href: '#' },
+        { label: 'Contact', href: '/contact' },
       ],
     },
     contact: {
       email: 'info@eurotalenttravels.com',
       phone: '+1 234 567 8900',
       address: '123 Travel Street, City, Country',
-      whatsapp: '+1234567890',
+      whatsapp: '+351920076707',
     },
     social: {
       facebook: '',
@@ -56,21 +56,49 @@ export default function ContentManagerPage() {
       linkedin: '',
     },
   })
+  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+
+  useEffect(() => {
+    loadContent()
+  }, [])
+
+  const loadContent = async () => {
+    try {
+      const response = await fetch('/api/cms/content')
+      const data = await response.json()
+      if (data.content) {
+        setContent(data.content)
+      }
+    } catch (error) {
+      console.error('Failed to load content:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleSave = async () => {
     setSaving(true)
     setMessage(null)
 
     try {
-      // In a real implementation, save to API
-      // For now, just show success
-      await new Promise(resolve => setTimeout(resolve, 500))
-      setMessage({ type: 'success', text: 'Content saved successfully!' })
-      setTimeout(() => setMessage(null), 3000)
+      const response = await fetch('/api/cms/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(content),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setMessage({ type: 'success', text: '✅ Site content saved successfully!' })
+        setTimeout(() => setMessage(null), 5000)
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Failed to save content' })
+      }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to save content' })
+      setMessage({ type: 'error', text: 'An error occurred while saving' })
     } finally {
       setSaving(false)
     }
@@ -116,6 +144,14 @@ export default function ContentManagerPage() {
         ),
       },
     }))
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-gray-600">Loading...</div>
+      </div>
+    )
   }
 
   return (

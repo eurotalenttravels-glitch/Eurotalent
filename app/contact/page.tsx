@@ -1,10 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import { createWhatsAppUrl } from '@/lib/whatsappConfig'
 
+interface ContactInfo {
+  email: string
+  phone: string
+  address: string
+  whatsapp: string
+}
+
 export default function ContactPage() {
+  const [contactInfo, setContactInfo] = useState<ContactInfo>({
+    email: 'info@eurotalenttravels.com',
+    phone: '+1 234 567 8900',
+    address: '123 Travel Street, City, Country',
+    whatsapp: '+351920076707',
+  })
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,6 +27,22 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  useEffect(() => {
+    loadContactInfo()
+  }, [])
+
+  const loadContactInfo = async () => {
+    try {
+      const response = await fetch('/api/cms/content')
+      const data = await response.json()
+      if (data.content && data.content.contact) {
+        setContactInfo(data.content.contact)
+      }
+    } catch (error) {
+      console.error('Failed to load contact info:', error)
+    }
+  }
 
   const formatWhatsAppMessage = () => {
     let message = `📧 *Contact Form - Euro Talent Travels*\n\n`
@@ -85,10 +114,10 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-[#1d1d1f] mb-1">Email</h3>
                     <a 
-                      href="mailto:info@eurotalenttravels.com" 
+                      href={`mailto:${contactInfo.email}`} 
                       className="text-[#007aff] hover:underline"
                     >
-                      info@eurotalenttravels.com
+                      {contactInfo.email}
                     </a>
                   </div>
                 </div>
@@ -98,10 +127,10 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-[#1d1d1f] mb-1">Phone</h3>
                     <a 
-                      href="tel:+1234567890" 
+                      href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} 
                       className="text-[#007aff] hover:underline"
                     >
-                      +1 234 567 8900
+                      {contactInfo.phone}
                     </a>
                   </div>
                 </div>
@@ -111,7 +140,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-[#1d1d1f] mb-1">WhatsApp</h3>
                     <a 
-                      href="https://wa.me/351920076707" 
+                      href={`https://wa.me/${contactInfo.whatsapp.replace(/[\s\+\-\(\)]/g, '')}`} 
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#007aff] hover:underline"
@@ -125,9 +154,8 @@ export default function ContactPage() {
                   <div className="text-2xl">📍</div>
                   <div>
                     <h3 className="font-semibold text-[#1d1d1f] mb-1">Address</h3>
-                    <p className="text-gray-600">
-                      123 Travel Street<br />
-                      City, Country
+                    <p className="text-gray-600 whitespace-pre-line">
+                      {contactInfo.address}
                     </p>
                   </div>
                 </div>

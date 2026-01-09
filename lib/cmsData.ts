@@ -8,6 +8,7 @@ const DATA_DIR = join(process.cwd(), 'data')
 const HOMEPAGE_DATA_FILE = join(DATA_DIR, 'homepage.json')
 const VISA_DATA_FILE = join(DATA_DIR, 'visa.json')
 const NATIONALITIES_FILE = join(DATA_DIR, 'nationalities.json')
+const SITE_CONTENT_FILE = join(DATA_DIR, 'site-content.json')
 
 // Default homepage content
 export interface HomepageContent {
@@ -59,6 +60,61 @@ export interface Nationality {
 
 export interface NationalitiesData {
   nationalities: Nationality[]
+}
+
+// Site content structure
+export interface SiteContent {
+  header: {
+    logo: string
+    navigation: Array<{ label: string; href: string }>
+  }
+  footer: {
+    text: string
+    links: Array<{ label: string; href: string }>
+  }
+  contact: {
+    email: string
+    phone: string
+    address: string
+    whatsapp: string
+  }
+  social: {
+    facebook: string
+    instagram: string
+    twitter: string
+    linkedin: string
+  }
+}
+
+const defaultSiteContent: SiteContent = {
+  header: {
+    logo: '✈️ Euro Talent Travels',
+    navigation: [
+      { label: 'Flights', href: '/' },
+      { label: 'Visa', href: '/visa' },
+      { label: 'Contact Us', href: '/contact' },
+    ],
+  },
+  footer: {
+    text: '© 2024 Euro Talent Travels. All rights reserved.',
+    links: [
+      { label: 'Privacy Policy', href: '#' },
+      { label: 'Terms of Service', href: '#' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  },
+  contact: {
+    email: 'info@eurotalenttravels.com',
+    phone: '+1 234 567 8900',
+    address: '123 Travel Street, City, Country',
+    whatsapp: '+351920076707',
+  },
+  social: {
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    linkedin: '',
+  },
 }
 
 const defaultNationalities: Nationality[] = [
@@ -199,4 +255,41 @@ export function getEnabledNationalities(): string[] {
     .filter(n => n.enabled)
     .sort((a, b) => a.order - b.order)
     .map(n => n.name)
+}
+
+// Read site content
+export function getSiteContent(): SiteContent {
+  if (typeof window !== 'undefined') {
+    return defaultSiteContent
+  }
+
+  ensureDataDir()
+  
+  try {
+    if (existsSync(SITE_CONTENT_FILE)) {
+      const content = readFileSync(SITE_CONTENT_FILE, 'utf-8')
+      return JSON.parse(content)
+    }
+  } catch (error) {
+    console.error('Error reading site content:', error)
+  }
+
+  saveSiteContent(defaultSiteContent)
+  return defaultSiteContent
+}
+
+// Save site content
+export function saveSiteContent(content: SiteContent): void {
+  if (typeof window !== 'undefined') {
+    throw new Error('Cannot save content from client-side')
+  }
+
+  ensureDataDir()
+  
+  try {
+    writeFileSync(SITE_CONTENT_FILE, JSON.stringify(content, null, 2), 'utf-8')
+  } catch (error) {
+    console.error('Error saving site content:', error)
+    throw error
+  }
 }
