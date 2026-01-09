@@ -22,7 +22,7 @@ export default function Header() {
             <Link href="/visa" className="text-[#1d1d1f] hover:text-[#007aff] text-sm font-medium transition-colors">
               Visa
             </Link>
-            <Link href="#" className="text-[#1d1d1f] hover:text-[#007aff] text-sm font-medium transition-colors">
+            <Link href="/contact" className="text-[#1d1d1f] hover:text-[#007aff] text-sm font-medium transition-colors">
               Contact Us
             </Link>
             <Link href="/admin/login" className="text-[#1d1d1f] hover:text-[#007aff] text-sm font-medium transition-colors">
