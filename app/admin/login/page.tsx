@@ -25,10 +25,9 @@ export default function AdminLoginPage() {
       const data = await response.json()
 
       if (response.ok) {
-        // Wait a moment for cookie to be set, then redirect
+        // Wait a moment for cookie to be set, then redirect with full reload
         setTimeout(() => {
-          router.push('/admin/dashboard')
-          router.refresh()
+          window.location.href = '/admin/dashboard'
         }, 100)
       } else {
         setError(data.error || 'Login failed')
